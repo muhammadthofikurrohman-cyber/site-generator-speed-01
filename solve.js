@@ -522,12 +522,13 @@ function renderMarkdown(src, env) {
         const parts = [];
         while (i < L && !fenceClose(lines[i])) {
           words += countWordsLine(lines[i]);
-          parts.push(escapeHtml(lines[i]), '\n');
+          parts.push(lines[i], '\n');
           i++;
         }
         if (i < L) words += countWordsLine(lines[i]); // the closing ``` line is a word too
         i++;
-        blocks.push('<pre><code' + (lang === '' ? '' : ` class="language-${escapeHtml(lang)}"`) + '>' + parts.join('') + '</code></pre>', '\n');
+        // '\n' is never escaped, so escaping the joined body equals escaping each line
+        blocks.push('<pre><code' + (lang === '' ? '' : ` class="language-${escapeHtml(lang)}"`) + '>' + escapeHtml(parts.join('')) + '</code></pre>', '\n');
         continue;
       }
       // not a fence: paragraph below
