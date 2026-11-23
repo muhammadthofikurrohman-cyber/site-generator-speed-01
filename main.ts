@@ -1,6 +1,6 @@
 // main.ts — entry driver (site-generator-speed-01).
-// Fast path: read cases.json as raw bytes, hand the whole file to the WASM
-// module (runAllBytes), write the returned answers JSON bytes directly.
+// Fast path: read cases.json as raw bytes, hand the whole file to the native
+// addon (runAllBytes), write the returned answers JSON bytes directly.
 // This skips the JS JSON.parse(cases.json) + JSON.stringify(answers)
 // round-trip that the baseline driver pays. Falls back to the per-case
 // run() loop if the fast path throws.
